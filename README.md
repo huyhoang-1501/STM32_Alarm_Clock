@@ -97,32 +97,35 @@ Flash:
 ---
 
 ## Usage / UI guide
-![Main_Screen](assets/Main_Screen.png)
+
 - Boot: device starts and shows:
   - Line 0: DATE: DD-MM-20YY
   - Line 1: TIME: HH:MM:SS
-![Menu](assets/Menu1.png)
+![Main Screen](assets/Main_Screen.png)
+
 - Menu:
   - Press MENU to open top menu.
   - Use UP/DOWN to move menu cursor.
   - MENU to select.
+![Menu](assets/Menu1.png)
 
-![Set Date](assets/Set_Date.png)
+
 - SET DATE:
   - Navigate to DATE -> SETUP DATE.
   - Editing fields are chosen by `contro` index; UP/DOWN change the currently selected field according to original mapping.
   - Confirm/exit as per original sketch behavior (MENU toggles between menu/edit modes).
+![Set Date](assets/Set_Date.png)
 
-![Set Time](assets/Set_Time.png)
 - SET TIME:
   - Navigate to TIME -> SETUP TIME.
   - Similar editing behavior as SET DATE.
+![Set Time](assets/Set_Time.png)
 
-![Alarm Triggered](assets/Alarm_Triggered.png)
 - Alarms:
   - ALARM menu lists up to 5 alarms.
   - Selecting an alarm shows DATE and TIME fields for that alarm.
   - Alarm checking occurs when on the main screen; when condition matches, buzzer pulses.
+![Alarm Triggered](assets/Alarm_Triggered.png)
 
 ---
 
