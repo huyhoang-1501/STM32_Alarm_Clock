@@ -174,7 +174,7 @@ If you want the firmware to be more robust / user-friendly, consider:
 ## License & Credits
 <div align="center">
 
-**© 2025 – Ho Chi Minh City University of Technology and Engineering (HCMUTE)**  
+**© 2026 – Ho Chi Minh City University of Technology and Engineering (HCMUTE)**  
 **Electronics & Communication Engineering Technology**
 
 **Nguyễn Phạm Huy Hoàng**  
