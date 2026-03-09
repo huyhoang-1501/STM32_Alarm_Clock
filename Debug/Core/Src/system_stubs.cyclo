@@ -1,0 +1,2 @@
+../Core/Src/system_stubs.c:15:6:Error_Handler	1
+../Core/Src/system_stubs.c:25:6:SystemClock_Config	3
