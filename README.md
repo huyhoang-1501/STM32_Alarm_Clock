@@ -29,7 +29,7 @@ The firmware implements:
 - Buzzer notification on alarm.
 - Cursor-based field editing system
 
----
+--- 
 
 ## Hardware wiring
 
@@ -47,29 +47,6 @@ The firmware implements:
 - Common ground: connect DS3231, LCD and MCU grounds together.
 
 Note: If using external pull-ups on I2C lines, 4.7kΩ is typical.
-
----
-
-## Important code notes & gotchas
-
-- DS3231 year handling
-  - DS3231 stores year as two BCD digits (0..99). Always pass only the last two digits (year % 100) when calling Set_Time. Passing a full four-digit year will produce incorrect BCD writes and wrong reads.
-  - The code includes Set_Time(..., (uint8_t)(namtong % 100)) in relevant places to avoid this bug.
-
-- Set_Time parameter order
-  - DS3231 expects the register sequence seconds, minutes, hours, dayofweek, dom, month, year. Ensure you call Set_Time with that order. Earlier mistakes (passing hours,minutes,seconds) will corrupt RTC data.
-
-- Debounce & button logic
-  - We discussed and optionally implemented per-button debounce using a small software structure. If you find button behavior noisy, enable/use the per-button debounce code (DEBOUNCE_MS) and increase the per-press HAL_Delay (post-press delay).
-
-- Writes during editing
-  - Some versions of the port wrote to the RTC in the display loop while the user is still editing. That can cause intermediate invalid values to be written (e.g. month temporarily 19) and then appear wrong after a read. Recommended approach is:
-    - Only write to RTC when user confirms (exits edit mode).
-    - The code currently writes during display to mimic original behavior.
-
-- hi2c1 symbol
-  - The I2C handle `hi2c1` must be defined exactly once in the project. If you get a linker "undefined reference to hi2c1" — add a definition (I2C_HandleTypeDef hi2c1;) or ensure your CubeMX-generated I2C file (e.g., i2c.c / MX_I2C1.c) provides it.
-  - If you get "multiple definition of hi2c1", remove duplicate definitions and keep a single authoritative one.
 
 ---
 
@@ -129,37 +106,6 @@ Flash:
 
 ---
 
-## Recommended changes (if you want improvements)
-
-If you want the firmware to be more robust / user-friendly, consider:
-- Per-button debounce (software) to avoid interaction between buttons.
-- Only writing to RTC after user confirms edit (to avoid invalid intermediate writes).
-- Input validation for date/time (e.g., month 1..12; day 1..daysInMonth).
-- Improve cursor blink/visual feedback with software blink (instead of hardware cursor) so editing is clearer.
-- Persist alarms in flash/EEPROM so they survive power cycles.
-- Replace HAL_Delay-based debouncing with millis-based non-blocking debouncing to improve UI responsiveness.
-
----
-
-## Troubleshooting
-
-- RTC shows wrong year
-  - Ensure Set_Time is passed year % 100. If you see weird years (e.g., 2074), you likely wrote a four-digit year to the DS3231.
-
-- Buttons behave oddly / multiple triggers
-  - Increase debounce delay (DEBOUNCE_MS) or enable per-button debounce implementation.
-  - Check wiring: buttons must be wired to GND and MCU pins should use pull-ups (internal or external).
-
-- LCD shows garbage / no display
-  - Verify I2C address and wiring.
-  - Check hi2c1 is properly initialized before lcd_init().
-  - Ensure your i2c-lcd driver uses the same I2C peripheral and handle name.
-
-- Linker errors for hi2c1
-  - Ensure `hi2c1` is defined exactly once (either in your main.c or in CubeMX-generated file). Use `extern I2C_HandleTypeDef hi2c1;` elsewhere if needed.
-
----
-
 ## Video
 [**Video**](https://www.youtube.com/watch?v=Y7rGqm_2nNY)
 
@@ -168,7 +114,6 @@ If you want the firmware to be more robust / user-friendly, consider:
     <img src="assets/Video.png" alt=""Video" width="500">
   </a>
 </p>
-
 
 ---
 ## License & Credits
