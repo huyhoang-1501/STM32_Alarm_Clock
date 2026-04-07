@@ -1,4 +1,7 @@
-# STM32F103 RTC + LCD Menu Firmware
+<div align="center">
+  <h1>STM32F103 RTC + LCD Menu Firmware</h1>
+</div>
+<br>
 
 This repository contains firmware for an STM32F103-based clock/alarm device using:
 - DS3231 RTC (I2C).
